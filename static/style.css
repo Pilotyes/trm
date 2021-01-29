@@ -1,0 +1,10 @@
+body {
+    background-color: #1779c8;
+}
+form input{
+height: 40px;
+margin: 5px;
+}
+form {
+        margin: 10px auto 5px;
+      }
