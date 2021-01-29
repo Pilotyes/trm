@@ -5,12 +5,16 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"trm/internal/store"
 )
 
 func login(login, password string) error {
-	fmt.Println(login, password)
-	if login == "a" && password == "b" {
-		return nil
+	if u := store.FindUser(login); u != nil {
+		if u.Password == password {
+			return nil
+		} else {
+			return errors.New("Incorrect password")
+		}
 	}
 	return errors.New("User not found")
 }
@@ -27,12 +31,13 @@ func main() {
 		case http.MethodGet:
 			templates.ExecuteTemplate(rw, "index.html", nil)
 		case http.MethodPost:
-			if err := login(r.FormValue("login"), r.FormValue("password")); err == nil {
-				http.Redirect(rw, r, "/lk", http.StatusMovedPermanently)
+			err := login(r.FormValue("login"), r.FormValue("password"))
+			if err != nil {
+				rw.WriteHeader(http.StatusUnauthorized)
+				fmt.Fprintf(rw, "<html>%s <a href=\"/login\">Back</a></html>", err)
 				return
 			}
-			rw.WriteHeader(http.StatusUnauthorized)
-			fmt.Fprintln(rw, "<html>Invalid password <a href=\"/login\">Back</a></html>")
+			http.Redirect(rw, r, "/lk", http.StatusMovedPermanently)
 		}
 
 	})
