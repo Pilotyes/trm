@@ -3,21 +3,21 @@ package store
 import "trm/internal/model"
 
 const (
-	//UserTypeR R&D ...
-	UserTypeR = iota
-	//UserTypeC Constructors ...
+	//UserTypeM - пользователь группы Maitenece
+	UserTypeM = iota
+	//UserTypeC Contractor - пользователь группы контрактников
 	UserTypeC
 )
 
-//UserList ...
+//UserList - БД пользователей, зарегистрированных в системе
 var UserList = map[string]*model.User{
-	"user1": &model.User{
+	"user1": {
 		ID:       int64(1),
 		Login:    "user1",
 		Password: "pass1",
-		UserType: UserTypeR,
+		UserType: UserTypeM,
 	},
-	"user2": &model.User{
+	"user2": {
 		ID:       int64(2),
 		Login:    "user2",
 		Password: "pass2",
@@ -25,7 +25,7 @@ var UserList = map[string]*model.User{
 	},
 }
 
-//FindUser ...
+//FindUser - поиск в БД зарегистрированных пользователей по полям структуры User
 func FindUser(userName string) *model.User {
 	if u, ok := UserList[userName]; ok {
 		return u
