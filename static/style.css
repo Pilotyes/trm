@@ -1,10 +1,27 @@
 body {
-    background-color: #1779c8;
+    background-color: #40a5f888;
 }
 form input{
 height: 40px;
 margin: 5px;
 }
 form {
-        margin: 10px auto 5px;
-      }
+   margin: 10px auto 5px;
+  }
+.menu li{
+    font-size: 20px;
+    width: 300px;
+    height: 30px;
+  }
+.menu li:hover{
+  color : blue;
+}
+.menu li :active{
+  color : red;
+}
+.menu li ul{
+  display: none;
+}
+.menu li:hover ul{
+  display: block;
+}

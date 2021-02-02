@@ -24,7 +24,7 @@ func TestSearchUser(t *testing.T) {
 				ID:       int64(1),
 				Login:    "user1",
 				Password: "pass1",
-				UserType: UserTypeR,
+				UserType: UserTypeM,
 			},
 		},
 		{
@@ -37,7 +37,7 @@ func TestSearchUser(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := SearchUser(tt.args.userName); !reflect.DeepEqual(got, tt.want) {
+			if got := FindUser(tt.args.userName); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("SearchUser() = %v, want %v", got, tt.want)
 			}
 		})
